@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:team1/model/background.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  // CATEGORY DATA
   final List<Map<String, String>> categories = [
     {"title": "Foods", "image": "🍲"},
     {"title": "Drinks", "image": "🥤"},
@@ -15,140 +15,137 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// HEADER
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFFFF9A6C), Color(0xFFFFC371)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 40),
-                  const Text(
-                    "Welcome to M3\nRestaurant",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFFF9A6C), Color(0xFFFFC371)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
                     ),
                   ),
-                  const SizedBox(height: 20),
-
-                  /// SEARCH BAR
-                  Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Search...",
-                            prefixIcon: const Icon(Icons.search),
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
+                      const SizedBox(height: 40),
+                      const Text(
+                        "Welcome to M3\nRestaurant",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(Icons.shopping_cart),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Search...",
+                                prefixIcon: const Icon(Icons.search),
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(Icons.shopping_cart),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
+                ),
 
-            const SizedBox(height: 20),
+                const SizedBox(height: 20),
+                sectionTitle("Category"),
 
-            /// CATEGORY
-            sectionTitle("Category"),
-            SizedBox(
-              height: 90,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 80,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 28,
-                          backgroundColor: Colors.orange.shade100,
-                          child: Text(
-                            categories[index]["image"]!,
-                            style: const TextStyle(fontSize: 24),
-                          ),
+                SizedBox(
+                  height: 90,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: 80,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 28,
+                              backgroundColor: Colors.orange.shade100,
+                              child: Text(
+                                categories[index]["image"]!,
+                                style: const TextStyle(fontSize: 24),
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              categories[index]["title"]!,
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          categories[index]["title"]!,
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
+                      );
+                    },
+                  ),
+                ),
 
-            /// POPULAR
-            sectionHeader("Popular"),
-            SizedBox(
-              height: 160,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  popularCard("Cambodian Fish\nAmok Recipe"),
-                  popularCard("Prahok with pork\nbelly"),
-                ],
-              ),
-            ),
+                sectionHeader("Popular"),
+                SizedBox(
+                  height: 160,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      popularCard("Cambodian Fish\nAmok Recipe"),
+                      popularCard("Prahok with pork\nbelly"),
+                    ],
+                  ),
+                ),
 
-            /// ALL MENU
-            sectionHeader("All Menu"),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              childAspectRatio: 0.75,
-              children: [
-                menuCard("Beef Lok Lak", "12000 KHR"),
-                menuCard("Samlor Korko", "12000 KHR"),
-                menuCard("Fried Rice", "10000 KHR"),
-                menuCard("Grilled Chicken", "15000 KHR"),
+                sectionHeader("All Menu"),
+                GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  childAspectRatio: 0.75,
+                  children: [
+                    menuCard("Beef Lok Lak", "12000 KHR"),
+                    menuCard("Samlor Korko", "12000 KHR"),
+                    menuCard("Fried Rice", "10000 KHR"),
+                    menuCard("Grilled Chicken", "15000 KHR"),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+
+          const GradientOverlay(),
+        ],
       ),
     );
   }
-
-  // ===== WIDGETS =====
-
   Widget sectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -164,12 +161,12 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           Text(
-            "Title",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          Text("See all", style: TextStyle(color: Colors.orange)),
+          const Text("See all", style: TextStyle(color: Colors.orange)),
         ],
       ),
     );
